@@ -1,5 +1,7 @@
 # leon-stream
 
+![Build](https://github.com/sh2nk/leon-stream/actions/workflows/go.yml/badge.svg)
+
 ### Simple bot for mailing subscribers when streamer is online
 
 Make sure that you exported all necessary environment variables, otherwise they'll fallback to dummy values.

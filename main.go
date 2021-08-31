@@ -29,6 +29,7 @@ var (
 	BroadcasterID  string
 	Domain         string
 	SubSecret      string
+	Port           string
 )
 
 func init() {
@@ -38,6 +39,7 @@ func init() {
 	TwitchSecret = getEnv("TWITCH_SECRET", "fak3s3cr37peo88hl2erzjggg0k30c")
 	BroadcasterID = getEnv("BROADCASTRE_ID", "1337")
 	Domain = getEnv("DOMAIN", "https://example.com")
+	Port = getEnv("APP_PORT", ":8081")
 }
 
 func main() {
@@ -140,8 +142,8 @@ func main() {
 
 	// Starting event handler
 	http.HandleFunc("/event", eventHandler)
-	go http.ListenAndServe(":8080", nil)
-	log.Println("Event handler listening on port :8080")
+	go http.ListenAndServe(Port, nil)
+	log.Printf("Event handler listening on port %s", Port)
 
 	// Make the correct shutdown on SIGTERM etc.
 	<-shutdown

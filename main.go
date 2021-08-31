@@ -37,7 +37,7 @@ func init() {
 	PostgresURL = getEnv("POSTGRES_URL", "postgres://user:password@localhost:5432/s3cr3t")
 	TwitchClientID = getEnv("TWITCH_CLIENT_ID", "fak3idixn8jqlgtr6n045c6plymhir")
 	TwitchSecret = getEnv("TWITCH_SECRET", "fak3s3cr37peo88hl2erzjggg0k30c")
-	BroadcasterID = getEnv("BROADCASTRE_ID", "1337")
+	BroadcasterID = getEnv("BROADCASTER_ID", "1337")
 	Domain = getEnv("DOMAIN", "https://example.com")
 	Port = getEnv("APP_PORT", ":8081")
 }
@@ -138,7 +138,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Code %d: Error during subscribing to event, %v\n", respCreate.StatusCode, err)
 	}
-	log.Printf("Code %d: Added a new subscription\n", respCreate.StatusCode)
+	log.Printf("Code %d: Added a new subscription for broadcaster id%s\n", respCreate.StatusCode, BroadcasterID)
 
 	// Starting event handler
 	http.HandleFunc("/event", eventHandler)

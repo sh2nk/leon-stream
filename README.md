@@ -13,7 +13,7 @@ VK_TOKEN="t0k3nex4mpl3"
 POSTGRES_URL="postgres://user:password@localhost:5432/s3cr3t"
 TWITCH_CLIENT_ID="fak3idixn8jqlgtr6n045c6plymhir"
 TWITCH_SECRET="fak3s3cr37peo88hl2erzjggg0k30c"
-BROADCASTRE_ID=1337
+BROADCASTER_ID=1337
 DOMAIN="https://example.com"
 APP_PORT=":8081"
 ```

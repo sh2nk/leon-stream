@@ -1,11 +1,21 @@
 package main
 
 import (
+	"io/ioutil"
 	"math"
 	"math/rand"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v3"
 )
+
+type Strings struct {
+	SubscribeResponse   string
+	UnsubscribeResponse string
+	DefaultResponse     string
+	Notification        string
+}
 
 func randomInt32() int32 {
 	rand.Seed(time.Now().UnixNano())
@@ -17,4 +27,24 @@ func getEnv(key, fallback string) string {
 		return value
 	}
 	return fallback
+}
+
+func getStrings(path string) (Strings, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		return Strings{}, err
+	}
+	defer file.Close()
+
+	data, err := ioutil.ReadAll(file)
+	if err != nil {
+		return Strings{}, err
+	}
+
+	res := Strings{}
+	if err := yaml.Unmarshal(data, &res); err != nil {
+		return Strings{}, err
+	}
+
+	return res, nil
 }

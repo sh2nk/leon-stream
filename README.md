@@ -17,3 +17,13 @@ BROADCASTER_ID=1337
 DOMAIN="https://example.com"
 APP_PORT=":8081"
 ```
+
+You can customize bot responses by editing `strings.yml`.
+
+Example:
+
+```yaml
+sub_response: "You have subscriсribed!"
+unsub_response: "You have subscriсribed!"
+default_response: "Send '+' to subscribe or '-' to unsubscribe"
+```

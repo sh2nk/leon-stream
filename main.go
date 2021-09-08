@@ -30,6 +30,7 @@ var (
 	Domain         string
 	SubSecret      string
 	Port           string
+	EventStrings   Strings
 )
 
 func init() {
@@ -46,6 +47,11 @@ func main() {
 	var err error
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM)
+
+	EventStrings, err = getStrings("strings.yml")
+	if err != nil {
+		log.Fatalf("Fatal error during strings.yml parsing")
+	}
 
 	// Creating a new twitch client
 	client, err := helix.NewClient(&helix.Options{

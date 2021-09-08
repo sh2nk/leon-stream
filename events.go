@@ -13,7 +13,7 @@ import (
 	"github.com/nicklaw5/helix"
 )
 
-type eventSubNotification struct {
+type EventSubNotification struct {
 	Subscription helix.EventSubSubscription `json:"subscription"`
 	Challenge    string                     `json:"challenge"`
 	Event        json.RawMessage            `json:"event"`
@@ -24,13 +24,13 @@ func onMessageNew(ctx context.Context, obj events.MessageNewObject) {
 
 	switch obj.Message.Text {
 	case "+":
-		sendMessage("Вы подписались на уведомления", obj.Message.PeerID)
+		sendMessage(EventStrings.SubscribeResponse, obj.Message.PeerID)
 		updateUserState(ctx, obj.Message.FromID, obj.Message.PeerID, true)
 	case "-":
-		sendMessage("Вы отписались от обновлений", obj.Message.PeerID)
+		sendMessage(EventStrings.UnsubscribeResponse, obj.Message.PeerID)
 		updateUserState(ctx, obj.Message.FromID, obj.Message.PeerID, false)
 	default:
-		sendMessage("Отправьте +, чтобы подписаться или -, чтобы отписаться от уведомлений", obj.Message.PeerID)
+		sendMessage(EventStrings.DefaultResponse, obj.Message.PeerID)
 	}
 }
 
@@ -83,7 +83,7 @@ func eventHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println("Verified signature for subscription")
 	}
 
-	var vals eventSubNotification
+	var vals EventSubNotification
 	err = json.NewDecoder(bytes.NewReader(body)).Decode(&vals)
 	if err != nil {
 		log.Printf("Invalid webhook json: %v\n", err)
@@ -104,7 +104,7 @@ func eventHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	log.Printf("Got stream start webhook: %s in now online!\n", streamEvent.BroadcasterUserName)
-	startMessaging(r.Context(), fmt.Sprintf("У %s начался стрим! Скорее заходи: https://twitch.tv/%s/", streamEvent.BroadcasterUserName, streamEvent.BroadcasterUserLogin))
+	startMessaging(r.Context(), fmt.Sprintf(EventStrings.Notification, streamEvent.BroadcasterUserName, streamEvent.BroadcasterUserLogin))
 
 	w.WriteHeader(200)
 	w.Write([]byte("ok"))

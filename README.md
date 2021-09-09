@@ -24,6 +24,7 @@ Example:
 
 ```yaml
 sub_response: "You have subscriсribed!"
-unsub_response: "You have subscriсribed!"
+unsub_response: "You have unsubscriсribed!"
 default_response: "Send '+' to subscribe or '-' to unsubscribe"
+notification: "Streamer %s started streaming! Hurry up!\nhttps://twitch.tv/%s/"
 ```

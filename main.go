@@ -53,8 +53,6 @@ func main() {
 		log.Fatalf("Fatal error during strings.yml parsing")
 	}
 
-	log.Println(EventStrings)
-
 	// Creating a new twitch client
 	client, err := helix.NewClient(&helix.Options{
 		ClientID:     TwitchClientID,

@@ -11,10 +11,10 @@ import (
 )
 
 type Strings struct {
-	SubscribeResponse   string
-	UnsubscribeResponse string
-	DefaultResponse     string
-	Notification        string
+	SubscribeResponse   string `yaml:"sub_response"`
+	UnsubscribeResponse string `yaml:"unsub_response"`
+	DefaultResponse     string `yaml:"default_response"`
+	Notification        string `yaml:"notification"`
 }
 
 func randomInt32() int32 {

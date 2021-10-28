@@ -22,15 +22,18 @@ type EventSubNotification struct {
 func onMessageNew(ctx context.Context, obj events.MessageNewObject) {
 	log.Printf("User %d sent: %s\n", obj.Message.PeerID, obj.Message.Text)
 
-	switch obj.Message.Text {
-	case "+":
-		sendMessage(EventStrings.SubscribeResponse, obj.Message.PeerID)
-		updateUserState(ctx, obj.Message.FromID, obj.Message.PeerID, true)
-	case "-":
-		sendMessage(EventStrings.UnsubscribeResponse, obj.Message.PeerID)
-		updateUserState(ctx, obj.Message.FromID, obj.Message.PeerID, false)
-	default:
-		sendMessage(EventStrings.DefaultResponse, obj.Message.PeerID)
+	//Ignoring messages in the group chat.
+	if obj.Message.PeerID > 2000000000 {
+		switch obj.Message.Text {
+		case "+":
+			sendMessage(EventStrings.SubscribeResponse, obj.Message.PeerID)
+			updateUserState(ctx, obj.Message.FromID, obj.Message.PeerID, true)
+		case "-":
+			sendMessage(EventStrings.UnsubscribeResponse, obj.Message.PeerID)
+			updateUserState(ctx, obj.Message.FromID, obj.Message.PeerID, false)
+		default:
+			sendMessage(EventStrings.DefaultResponse, obj.Message.PeerID)
+		}
 	}
 }
 

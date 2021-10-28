@@ -23,7 +23,7 @@ func onMessageNew(ctx context.Context, obj events.MessageNewObject) {
 	log.Printf("User %d sent: %s\n", obj.Message.PeerID, obj.Message.Text)
 
 	//Ignoring messages in the group chat.
-	if obj.Message.PeerID > 2000000000 {
+	if obj.Message.PeerID < 2000000000 {
 		switch obj.Message.Text {
 		case "+":
 			sendMessage(EventStrings.SubscribeResponse, obj.Message.PeerID)
